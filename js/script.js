@@ -10,7 +10,9 @@ project 1 - A Random Quote Generator
 /*** 
  * `quotes` array 
 ***/
-
+var red;
+var green;
+var blue;
 var quotes=[
   
   { 
@@ -47,6 +49,11 @@ var quotes=[
 
 ];
 
+function print(quote) {
+	var outputDiv = document.getElementById('quote-box');
+	outputDiv.innerHTML = quote;
+}
+
  
 
 /***
@@ -58,16 +65,33 @@ function getRandomQuote(){
 }
 
 
+//Function to genereate random rgb color value
+function randomColorGenerator() {
+	var randomColor;
+	red = Math.floor(Math.random() * 256 );
+	green = Math.floor(Math.random() * 256 );
+	blue = Math.floor(Math.random() * 256 );
+	randomColor = 'rgb(' + red + ',' + green + ',' + blue + ')';
+	return randomColor;
+}
+randomColorGenerator();
+console.log(randomColorGenerator())
+
 /***
  * `printQuote` function
 ***/
 function printQuote(){
+  //On click first function printQuote runs, and then getRandomQuote runs 
 var newQuote= getRandomQuote();
+
 const quote = document.querySelector(".quote");
 const source = document.querySelector(".source");
 
 quote.textContent = newQuote.quote;
 source.innerText = newQuote.source;
+
+
+
 // const div = document.createElement("div");
 // div.classList.add("quote-box");
 
@@ -86,14 +110,14 @@ source.innerText = newQuote.source;
 
 
 if(newQuote.citation){
-  const citation = document.createElement("spen")
+  const citation = document.createElement("span")
   citation.classList.add("citation");
   citation.textContent=newQuote.citation;
   source.appendChild(citation);
 }
 
 if(newQuote.year){
-  const year = document.createElement("spen")
+  const year = document.createElement("span")
   year.classList.add("year");
   year.textContent=newQuote.year;
   source.appendChild(year)
@@ -101,9 +125,14 @@ if(newQuote.year){
 
 
 
-}
+
  
 
+
+//Update background with new random color
+document.getElementById('bgcolor').style.backgroundColor = randomColorGenerator();
+
+}
 
 /***
  * click event listener for the print quote button
